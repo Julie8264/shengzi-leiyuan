@@ -625,72 +625,52 @@ function playHanziWriterAnimation() {
         stepsHtml += '</div>';
     }
     display.innerHTML =
-        `<p class="stroke-hint" id="anim-hint" style="color:var(--accent-dark);font-weight:bold;">正在朗读生字读音...</p>` +
+        `<p class="stroke-hint" id="anim-hint" style="color:var(--accent-dark);font-weight:bold;">正在播放笔顺动画...</p>` +
         stepsHtml;
 
-    // 与 HanziWriter 保持一致的速度参数
-    const strokeAnimationSpeed = 1;
-    const delayBetweenStrokes = 800;
-    // HanziWriter 内部每笔动画时长约 400ms / speed
-    const strokeDuration = 400 / strokeAnimationSpeed;
+    // 启动 HanziWriter 动画
+    animateWriter.animateCharacter();
 
-    // 先朗读生字读音，读完后再播放笔顺动画
-    if ('speechSynthesis' in window) {
-        speechSynthesis.cancel();
-        const pinyinUtterance = new SpeechSynthesisUtterance(currentChar.pinyin);
-        pinyinUtterance.lang = 'zh-CN';
-        pinyinUtterance.rate = 0.7;
-        // 朗读完生字读音后，开始播放笔顺动画
-        pinyinUtterance.onend = function() {
-            startStrokeAnimation();
-        };
-        // 如果语音合成失败，1.5秒后自动开始动画
-        pinyinUtterance.onerror = function() {
-            setTimeout(startStrokeAnimation, 1500);
-        };
-        speechSynthesis.speak(pinyinUtterance);
-    } else {
-        // 浏览器不支持语音合成，直接开始动画
-        startStrokeAnimation();
+    // 用语音 onend 事件串联，确保每笔读完再读下一笔，不会累积偏差
+    function highlightStroke(idx) {
+        document.querySelectorAll('.stroke-step').forEach(s => s.classList.remove('active'));
+        const stepEl = document.getElementById(`anim-step-${idx}`);
+        if (stepEl) stepEl.classList.add('active');
+        const hintEl = document.getElementById('anim-hint');
+        if (hintEl) hintEl.textContent = `第${idx + 1}笔：${strokes[idx]}（共${totalStrokes}画）`;
     }
 
-    function startStrokeAnimation() {
-        // 更新提示
-        const hintEl = document.getElementById('anim-hint');
-        if (hintEl) hintEl.textContent = '正在播放笔顺动画...';
-
-        for (let i = 0; i < totalStrokes; i++) {
-            const strokeName = strokes[i];
-            const strokeNum = i;
-            const startDelay = i * (strokeDuration + delayBetweenStrokes);
-
-            // 高亮当前笔画
-            setTimeout(() => {
-                document.querySelectorAll('.stroke-step').forEach(s => s.classList.remove('active'));
-                const stepEl = document.getElementById(`anim-step-${strokeNum}`);
-                if (stepEl) stepEl.classList.add('active');
-                const hintEl2 = document.getElementById('anim-hint');
-                if (hintEl2) hintEl2.textContent = `第${strokeNum + 1}笔：${strokeName}（共${totalStrokes}画）`;
-            }, startDelay);
-
-            // 朗读笔画名称，与笔画动画同步
-            setTimeout(() => {
-                speak(strokeName);
-            }, startDelay + 50);
+    function speakStrokeSequentially(idx) {
+        if (idx >= totalStrokes) {
+            document.querySelectorAll('.stroke-step').forEach(s => s.classList.remove('active'));
+            const hintEl = document.getElementById('anim-hint');
+            if (hintEl) {
+                hintEl.textContent = `✅ "${currentChar.char}"字共${totalStrokes}画，书写完成！`;
+                hintEl.style.color = 'var(--success)';
+            }
+            return;
         }
 
-        const totalDuration = totalStrokes * (strokeDuration + delayBetweenStrokes);
-        setTimeout(() => {
-            document.querySelectorAll('.stroke-step').forEach(s => s.classList.remove('active'));
-            const hintEl3 = document.getElementById('anim-hint');
-            if (hintEl3) {
-                hintEl3.textContent = `✅ "${currentChar.char}"字共${totalStrokes}画，书写完成！`;
-                hintEl3.style.color = 'var(--success)';
-            }
-        }, totalDuration + 200);
+        highlightStroke(idx);
 
-        animateWriter.animateCharacter();
+        if ('speechSynthesis' in window) {
+            const utterance = new SpeechSynthesisUtterance(strokes[idx]);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.8;
+            utterance.onend = function() {
+                speakStrokeSequentially(idx + 1);
+            };
+            utterance.onerror = function() {
+                speakStrokeSequentially(idx + 1);
+            };
+            speechSynthesis.speak(utterance);
+        } else {
+            setTimeout(() => speakStrokeSequentially(idx + 1), 600);
+        }
     }
+
+    speechSynthesis.cancel();
+    speakStrokeSequentially(0);
 }
 
 function resetHanziWriter() {
