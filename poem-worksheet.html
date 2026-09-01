@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="LjMqDmoiPBMxnZVfy2iW4v">
+<head data-page-node-id="DZyPYLRQE2AS4GdG1DqP4c">
+<meta charset="UTF-8" data-page-node-id="cx3XDaWxhDWW0R9sPoXjKO">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="ZFkNEIAo9MlFMiZb8cNxqe">
+<title>第一单元 古诗词三首 · 预习与创意作业单</title>
+<style>
+  @page { size: A4 landscape; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+    background: #f5f0e8;
+    color: #333;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .sheet {
+    width: 297mm;
+    min-height: 210mm;
+    background: #fffdf8;
+    border: 3px double #8B7355;
+    border-radius: 8px;
+    padding: 15mm 12mm;
+    position: relative;
+    overflow: hidden;
+  }
+  /* 装饰背景 */
+  .sheet::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #8B7355, #C4A882, #8B7355);
+  }
+
+  /* ===== 标题区 ===== */
+  .header {
+    text-align: center;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #C4A882;
+    padding-bottom: 8px;
+  }
+  .header h1 {
+    font-size: 20pt;
+    color: #5C4033;
+    letter-spacing: 3px;
+    margin-bottom: 3px;
+  }
+  .header .subtitle {
+    font-size: 9pt;
+    color: #8B7355;
+    letter-spacing: 1px;
+  }
+  .student-info {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 6px;
+    font-size: 9pt;
+    color: #666;
+  }
+  .student-info span {
+    border-bottom: 1px solid #ccc;
+    padding: 0 8px 1px;
+    min-width: 80px;
+    display: inline-block;
+  }
+
+  /* ===== 第一部分：诗人资料卡 ===== */
+  .section {
+    margin-bottom: 12px;
+  }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .section-num {
+    width: 22px; height: 22px;
+    background: #8B7355;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11pt;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  .section-title h2 {
+    font-size: 12pt;
+    color: #5C4033;
+  }
+  .section-title .tag {
+    font-size: 7.5pt;
+    color: #C4A882;
+    background: #f9f3ea;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 1px 6px;
+    margin-left: 4px;
+  }
+
+  /* 三栏诗人卡 */
+  .poet-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .poet-card {
+    border: 1.5px solid #C4A882;
+    border-radius: 6px;
+    padding: 8px 10px;
+    background: #fffdf8;
+    position: relative;
+  }
+  .poet-card .poet-name {
+    text-align: center;
+    font-size: 11pt;
+    font-weight: bold;
+    color: #5C4033;
+    margin-bottom: 4px;
+    padding-bottom: 3px;
+    border-bottom: 1px dashed #C4A882;
+  }
+  .poet-card .poet-label {
+    font-size: 7.5pt;
+    color: #999;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .field-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 5px;
+    font-size: 8pt;
+    align-items: flex-start;
+  }
+  .field-label {
+    color: #8B7355;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-weight: bold;
+  }
+  .field-blank {
+    flex: 1;
+    border-bottom: 1px dotted #ccc;
+    min-height: 14px;
+  }
+  .field-blank.multi {
+    min-height: 32px;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  /* ===== 第二部分：写作背景 ===== */
+  .bg-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .bg-card {
+    border: 1.5px solid #C4A882;
+    border-radius: 6px;
+    padding: 8px 10px;
+    background: linear-gradient(180deg, #fffdf8 0%, #f9f3ea 100%);
+  }
+  .bg-card .poem-title {
+    text-align: center;
+    font-size: 10pt;
+    font-weight: bold;
+    color: #5C4033;
+    margin-bottom: 4px;
+    padding-bottom: 3px;
+    border-bottom: 1px dashed #C4A882;
+  }
+  .bg-card .poem-text {
+    font-size: 8pt;
+    color: #666;
+    text-align: center;
+    margin-bottom: 5px;
+    line-height: 1.5;
+  }
+  .bg-card .bg-label {
+    font-size: 7.5pt;
+    color: #8B7355;
+    font-weight: bold;
+    margin-bottom: 2px;
+  }
+  .bg-card .bg-lines {
+    border: 1px solid #eee;
+    border-radius: 3px;
+    height: 50px;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 11px,
+      #eee 11px,
+      #eee 11.5px
+    );
+  }
+
+  /* ===== 第三部分：画面绘制 ===== */
+  .draw-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .draw-card {
+    border: 1.5px solid #C4A882;
+    border-radius: 6px;
+    padding: 8px;
+    background: #fffdf8;
+  }
+  .draw-card .draw-title {
+    text-align: center;
+    font-size: 9pt;
+    font-weight: bold;
+    color: #5C4033;
+    margin-bottom: 4px;
+  }
+  .draw-card .draw-key {
+    font-size: 7pt;
+    color: #999;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .draw-area {
+    height: 70px;
+    border: 1.5px dashed #C4A882;
+    border-radius: 4px;
+    background: #fefff9;
+  }
+
+  /* 底部 */
+  .footer {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 7.5pt;
+    color: #bbb;
+    border-top: 1px dashed #ddd;
+    padding-top: 6px;
+  }
+  .footer .tips {
+    color: #C4A882;
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .sheet { border: none; border-radius: 0; box-shadow: none; }
+  }
+</style>
+</head>
+<body data-page-node-id="54MlNK5imH20zo4uzhZW6D">
+
+<div class="sheet" data-page-node-id="2JcAXw5Wcq7qaMMVaPBW67">
+
+  <!-- ===== 标题 ===== -->
+  <div class="header" data-page-node-id="OsZVOKxp8Kzsx96RihrQ6x">
+    <h1 data-page-node-id="5DG008yfWZHD95WLK4lDth">📜 第一单元 古诗词三首 · 预习与创意作业单</h1>
+    <p class="subtitle" data-page-node-id="O1kezjdO0q6TRQ68R0TjiO">部编版六年级语文上册（2026秋新版） | 课前预习 + 课后创意</p>
+    <div class="student-info" data-page-node-id="3fVvV24WBs1XicfdXcsilp">
+      <div data-page-node-id="styLFQGLA8KAJwQGMjFynd">班级：<span data-page-node-id="ANDXvgMWpJa6CslQX4GgOz">　　　　　　</span></div>
+      <div data-page-node-id="wnenbeXCPU9t9aGi8tKZxT">姓名：<span data-page-node-id="Z34LhYDwDQd8SkUy34j4cX">　　　　　　</span></div>
+      <div data-page-node-id="eYZZgGgnmxmoptEnyoCFNY">日期：<span data-page-node-id="UuSd6F0pIovTK4zBXcbZEr">　　　年　　月　　日</span></div>
+    </div>
+  </div>
+
+  <!-- ===== 第一部分：诗人资料卡 ===== -->
+  <div class="section" data-page-node-id="R5XAYvBForOF7h2UIZzESD">
+    <div class="section-title" data-page-node-id="uzH8USnpEKc9i00DWv1wpp">
+      <div class="section-num" data-page-node-id="e69om0363ydTDzK5p0Z0RH">一</div>
+      <h2 data-page-node-id="DIcfY6i8h3KEInajcwE11Y">诗人资料卡</h2>
+      <span class="tag" data-page-node-id="rP8tP1wqOaa91arcKt9Uou">课前完成</span>
+      <span class="tag" data-page-node-id="f6Wvc3FMpUwyp32BCgIJ2F">可查阅书籍或网络</span>
+    </div>
+    <p style="font-size:8pt;color:#999;margin-bottom:8px;" data-page-node-id="sfxxtap8AcEsRWfO9gqHUu">请你课前查阅三位诗人的资料，用简洁的语言填写以下信息。</p>
+
+    <div class="poet-row" data-page-node-id="XpoMorIfDGGvS0xAMRh5Ym">
+      <!-- 孟浩然 -->
+      <div class="poet-card" data-page-node-id="AqoTfXd3YQR8SN3TlystNa">
+        <div class="poet-name" data-page-node-id="lCjgjQknHUPfhR9FyobVFv">孟 浩 然</div>
+        <div class="poet-label" data-page-node-id="OEniRkxQKLBDGgU5iXAAVe">《宿建德江》作者</div>
+        <div class="field-row" data-page-node-id="2QT3U6g6pCf2oIMTMmwrxq">
+          <span class="field-label" data-page-node-id="5nKoFCNbQb8snM5rLTnebm">朝代：</span>
+          <span class="field-blank" data-page-node-id="vyCIRZNqN12vuZB5cT1kgf"></span>
+        </div>
+        <div class="field-row" data-page-node-id="6brkmHExRvdgTciS3vSDpy">
+          <span class="field-label" data-page-node-id="uYnIzbCZMTpZ16J7YsWCJK">字号：</span>
+          <span class="field-blank" data-page-node-id="AzhUBy3A0rMFM3Jc3iIwbG"></span>
+        </div>
+        <div class="field-row" data-page-node-id="eteHuIousN7KnZZJuIDmpZ">
+          <span class="field-label" data-page-node-id="hLkK94qbqktyCdPJljtMT3">诗派：</span>
+          <span class="field-blank" data-page-node-id="dW0UI06kGiSL8O2lM0JYUg"></span>
+        </div>
+        <div class="field-row" data-page-node-id="qirtW8J8eM7sZeddBFrMDk">
+          <span class="field-label" data-page-node-id="t6LjjPXHHz1o73JSJNOo69">代表名句：</span>
+        </div>
+        <div class="field-row" data-page-node-id="7Ak6x4toigXw4akAqclFAY">
+          <div class="field-blank multi" data-page-node-id="YJr0sDdbzMqKFlJADT9l3x"></div>
+        </div>
+        <div class="field-row" data-page-node-id="1RJzlHNnBDHkBILvd08oo3">
+          <span class="field-label" data-page-node-id="OvyqFXdPsAVvjuUVAmap07">一句话评价：</span>
+        </div>
+        <div class="field-row" data-page-node-id="TzE9D5p89AOniUlFqC2Wkh">
+          <div class="field-blank multi" data-page-node-id="OyxWECGqMniDAZXDZaild1"></div>
+        </div>
+      </div>
+
+      <!-- 苏轼 -->
+      <div class="poet-card" data-page-node-id="vw0zMsWvFj9uqNNfoTpmhZ">
+        <div class="poet-name" data-page-node-id="4kmJlRFlnAV0bcFHoufIEQ">苏 　 轼</div>
+        <div class="poet-label" data-page-node-id="B1YyH5BZltO44G0VcLn9Ed">《六月二十七日望湖楼醉书》作者</div>
+        <div class="field-row" data-page-node-id="nPDRdKVi5ZyMI0pU4WkZcC">
+          <span class="field-label" data-page-node-id="AN7NnaJ2g7VKkcBcHwHHCV">朝代：</span>
+          <span class="field-blank" data-page-node-id="92X4XJRADTmGUy593fZZy9"></span>
+        </div>
+        <div class="field-row" data-page-node-id="01HP9UnvgsrxWUbGyFzyHe">
+          <span class="field-label" data-page-node-id="BGzAMph6UDeQH20NrIzEla">字号：</span>
+          <span class="field-blank" data-page-node-id="mM08LDPhpGXkdiNBKRRJcP"></span>
+        </div>
+        <div class="field-row" data-page-node-id="0eJTPevTRC7OvdP678mlqs">
+          <span class="field-label" data-page-node-id="pN7Hcl4DN4VIuDrvouupit">文学成就：</span>
+        </div>
+        <div class="field-row" data-page-node-id="2yJPsahDPlFFLPUY1EmnOC">
+          <div class="field-blank multi" data-page-node-id="IP2agGxUrrbOAyvhamYH1n"></div>
+        </div>
+        <div class="field-row" data-page-node-id="vPeTVwqw2ymrvEMqT31weE">
+          <span class="field-label" data-page-node-id="Xb81jHvvQ1dzPIPVlfKqCC">代表名句：</span>
+        </div>
+        <div class="field-row" data-page-node-id="nvrQik5xVFZRys826Pl8yK">
+          <div class="field-blank multi" data-page-node-id="3DhzkIoxn9ZYJJu7MNMijB"></div>
+        </div>
+        <div class="field-row" data-page-node-id="8CfHXO2hDhxa5cLeJz6PQs">
+          <span class="field-label" data-page-node-id="yQOiqipFFqf8Npds2gOWW7">一句话评价：</span>
+        </div>
+        <div class="field-row" data-page-node-id="FPJnVllQxfROgczfGlt9AV">
+          <div class="field-blank multi" data-page-node-id="pD1CFSn3KNHrOQoHAiXpYp"></div>
+        </div>
+      </div>
+
+      <!-- 辛弃疾 -->
+      <div class="poet-card" data-page-node-id="F07gYZ8wMYKmub32SQyKvw">
+        <div class="poet-name" data-page-node-id="HC5xKAwPweUC0uN7P3rZ0k">辛 弃 疾</div>
+        <div class="poet-label" data-page-node-id="gwbtqYgb5X4UeJa271Li8E">《西江月·夜行黄沙道中》作者</div>
+        <div class="field-row" data-page-node-id="D3yAEUh02tmKnTAB3C6ETP">
+          <span class="field-label" data-page-node-id="RfLtPATOfnXk48eDFQOsK6">朝代：</span>
+          <span class="field-blank" data-page-node-id="B2pl18gwA4NqDEj5YQolZZ"></span>
+        </div>
+        <div class="field-row" data-page-node-id="bJ615Cdg4eFTSIpprFWxUt">
+          <span class="field-label" data-page-node-id="F8NN2O4Izm8BxZCWQKeiQ5">字号：</span>
+          <span class="field-blank" data-page-node-id="4OaqMwt4bjsdT1xTjlvh9J"></span>
+        </div>
+        <div class="field-row" data-page-node-id="IAmJNHu8maqnLEKxt7ay7X">
+          <span class="field-label" data-page-node-id="AXTTHE1X3SWHuuwNqFIUFI">词风：</span>
+          <span class="field-blank" data-page-node-id="iDzUFzi9ZWXJhiWGnmU3dR"></span>
+        </div>
+        <div class="field-row" data-page-node-id="MiJICxAsv7SbdR5HyvE73d">
+          <span class="field-label" data-page-node-id="MSpZOYMzJ13M5WayaJyenJ">代表名句：</span>
+        </div>
+        <div class="field-row" data-page-node-id="DrlgYl2FlYXjfAaBCndPBG">
+          <div class="field-blank multi" data-page-node-id="MWVKXojtmR7fxfAJEVoYsV"></div>
+        </div>
+        <div class="field-row" data-page-node-id="g9ZcpkumBejkCmwmtDpUGz">
+          <span class="field-label" data-page-node-id="5CPmZhNqDpe6xiqCDVpfN5">一句话评价：</span>
+        </div>
+        <div class="field-row" data-page-node-id="B8jVyLlSukxs0V0X2bhHdC">
+          <div class="field-blank multi" data-page-node-id="guVezAym9odVyNiLGXPsst"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 第二部分：写作背景 ===== -->
+  <div class="section" data-page-node-id="u2OCUeKtN4Wm7RRF4hkk1i">
+    <div class="section-title" data-page-node-id="IhTOjMOmzJsrDpmD1xNLi3">
+      <div class="section-num" data-page-node-id="441FgVZ1yctNN5iXiwkDWD">二</div>
+      <h2 data-page-node-id="lBaKPQvF7OXHyIQI7Lu3qf">写作背景探秘</h2>
+      <span class="tag" data-page-node-id="RJiWBL5foS7wUMtfdWv33U">课前完成</span>
+    </div>
+    <p style="font-size:8pt;color:#999;margin-bottom:8px;" data-page-node-id="Oe5svb8V2uRfLLLA0lyRAi">了解每首诗词是在什么情况下写的，有助于你更好地理解诗人的情感。请简要填写写作背景。</p>
+
+    <div class="bg-row" data-page-node-id="pwo0D9Y1Bfwe2T3UK7qF8m">
+      <div class="bg-card" data-page-node-id="ZuyNfQFE62txZwr5MIf24z">
+        <div class="poem-title" data-page-node-id="1sogD95IJEpPYWk18AH5U7">宿建德江</div>
+        <div class="poem-text" data-page-node-id="tHLiY057bKpyZ1rLiNpAdF">移舟泊烟渚，日暮客愁新。<br data-page-node-id="GSEn2JmfwjFZ7IyfZ9kpYg">野旷天低树，江清月近人。</div>
+        <div class="bg-label" data-page-node-id="0vWORgY5JlsWtHtsXGeJdT">写作背景（时间、地点、缘由）：</div>
+        <div class="bg-lines" data-page-node-id="jSVhOU8rP1WshaMM7ArI79"></div>
+      </div>
+
+      <div class="bg-card" data-page-node-id="ZWAtBfOv0Bpdjhw6wVccme">
+        <div class="poem-title" data-page-node-id="dXfa5WLdbuu1dtV1m2s62C">六月二十七日望湖楼醉书</div>
+        <div class="poem-text" data-page-node-id="ixmEqKdg3rReb8akGKKC5m">黑云翻墨未遮山，白雨跳珠乱入船。<br data-page-node-id="4VoX8FmYCd0KcjBVQj5ZML">卷地风来忽吹散，望湖楼下水如天。</div>
+        <div class="bg-label" data-page-node-id="WzbjurmUQZFhkMZUC8Qkc5">写作背景（时间、地点、缘由）：</div>
+        <div class="bg-lines" data-page-node-id="0mjvRSg3rEYj2c8Jx9I7hd"></div>
+      </div>
+
+      <div class="bg-card" data-page-node-id="KBBB9eFsPs2z0MhElxXXfp">
+        <div class="poem-title" data-page-node-id="9iAralBLxiQ4M7eP2coG6z">西江月·夜行黄沙道中</div>
+        <div class="poem-text" data-page-node-id="ScupV9YNe37FXpEMEsqVnP">明月别枝惊鹊，清风半夜鸣蝉。<br data-page-node-id="b3JXi2ZJz3mlsfW2f7fbSs">稻花香里说丰年，听取蛙声一片。<br data-page-node-id="2m6S23pztM8BFOkVYl8fED">七八个星天外，两三点雨山前。<br data-page-node-id="oMYAyRmCFzSroyoM1G7SEB">旧时茅店社林边，路转溪桥忽见。</div>
+        <div class="bg-label" data-page-node-id="KgCqUgm44xdeE5bpDtWxcX">写作背景（时间、地点、缘由）：</div>
+        <div class="bg-lines" data-page-node-id="XMuETG3bSILLKCCFRtv1Fd"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 第三部分：画面绘制 ===== -->
+  <div class="section" data-page-node-id="6HxJ1MHf9bv2sAenPzABsj">
+    <div class="section-title" data-page-node-id="kukYMW8AUCWf0KGmEMYmMA">
+      <div class="section-num" data-page-node-id="h6xPkHuKSwoH6CQc1UvqPJ">三</div>
+      <h2 data-page-node-id="gY46nvXLSEERFt9YCTuKR6">诗中有画 · 画中有诗</h2>
+      <span class="tag" data-page-node-id="ucqAQReryT7Ci7oC9tAdHn">课后完成</span>
+      <span class="tag" data-page-node-id="weICLRbRWZL288ekq8ygBC">学完三首诗词后</span>
+    </div>
+    <p style="font-size:8pt;color:#999;margin-bottom:8px;" data-page-node-id="3hOCcvG38fUA0GbBrG9W6U">苏轼曾说"诗中有画，画中有诗"。学完每首诗词后，请你在方框内画出诗中描绘的画面，并在旁边写一句你最喜欢的那句诗。</p>
+
+    <div class="draw-row" data-page-node-id="0xkXa82B99Wfy7JuhJ8pa5">
+      <div class="draw-card" data-page-node-id="MT1OUrR8autnseURys42Td">
+        <div class="draw-title" data-page-node-id="536BWVuSBEO8DAaiMnRXUF">《宿建德江》</div>
+        <div class="draw-key" data-page-node-id="JiJcVByrquzVh78fXnI2OV">关键意象：烟渚 · 客舟 · 暮色 · 江月</div>
+        <div class="draw-area" data-page-node-id="VbI1HvwMNh4iIZODCBxQ73"></div>
+        <div style="margin-top:4px;font-size:7.5pt;color:#8B7355;" data-page-node-id="Zhq5NYxMmiJHCvCg4CbT0A">我最喜欢的诗句：　　　　　　　　　　　　</div>
+      </div>
+
+      <div class="draw-card" data-page-node-id="QKmz4lgBJRkEGnZT3fYdx5">
+        <div class="draw-title" data-page-node-id="jjCoW7be6x7jZi6OuBCeN9">《六月二十七日望湖楼醉书》</div>
+        <div class="draw-key" data-page-node-id="uN9rUX21Q25DV2qfIAgJPn">关键意象：黑云 · 白雨 · 翻墨 · 跳珠 · 水如天</div>
+        <div class="draw-area" data-page-node-id="P7N6lFxdsEFYXLNCXEMQEb"></div>
+        <div style="margin-top:4px;font-size:7.5pt;color:#8B7355;" data-page-node-id="aPyw5DrhMVzuytYf5LBTaa">我最喜欢的诗句：　　　　　　　　　　　　</div>
+      </div>
+
+      <div class="draw-card" data-page-node-id="XEYl3cNRR0WMX6Er4Kw0QE">
+        <div class="draw-title" data-page-node-id="dyxMYiFiSQlfCCFR1ShzFP">《西江月·夜行黄沙道中》</div>
+        <div class="draw-key" data-page-node-id="eEb9bQuG5dTA2V12p9wlMb">关键意象：明月 · 鹊 · 蝉 · 稻花 · 蛙声 · 星 · 雨 · 茅店 · 溪桥</div>
+        <div class="draw-area" data-page-node-id="F4OQKbq8ynFAxO0fWEcAvf"></div>
+        <div style="margin-top:4px;font-size:7.5pt;color:#8B7355;" data-page-node-id="vaVFUvUtU56D3ZB0DQCBcw">我最喜欢的诗句：　　　　　　　　　　　　</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <div class="footer" data-page-node-id="xfDU5YwnH8Ofk2pCEaUiMa">
+    <span class="tips" data-page-node-id="slDt2zGxGnzcZRbjnQfFzq">💡 小提示：查阅资料时可以翻阅课外书、使用图书馆资源或请家长帮忙上网搜索。画图时可以用彩笔，发挥你的想象力！</span>
+    <br data-page-node-id="Ec7E4YPQzGNZfBAnDRZ51q">
+    <span style="margin-top:4px;display:inline-block;" data-page-node-id="iFZXyoHSNs0owvcdtVcamU">六年级语文上册 第一单元 古诗词三首作业单 | 姓名：___________ | 第　　页</span>
+  </div>
+
+</div>
+
+</body>
+</html>
