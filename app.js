@@ -381,7 +381,7 @@ function showTeacherReport() {
         }
         
         // 每个学生的详情
-        html += '<h3 style="color:var(--primary-dark);margin-top:24px;">📝 未完成书写练习的学生详情</h3>';
+        html += '<h3 style="color:var(--primary-dark);margin-top:24px;"> 未完成书写练习的学生详情</h3>';
         students.forEach(s => {
             const notPracticed = allChars.filter(c => !s.practicedChars.includes(c.char));
             if (notPracticed.length > 0) {
@@ -631,7 +631,6 @@ function playHanziWriterAnimation() {
     // 启动 HanziWriter 动画
     animateWriter.animateCharacter();
 
-    // 用语音 onend 事件串联，确保每笔读完再读下一笔，不会累积偏差
     function highlightStroke(idx) {
         document.querySelectorAll('.stroke-step').forEach(s => s.classList.remove('active'));
         const stepEl = document.getElementById(`anim-step-${idx}`);
@@ -640,7 +639,30 @@ function playHanziWriterAnimation() {
         if (hintEl) hintEl.textContent = `第${idx + 1}笔：${strokes[idx]}（共${totalStrokes}画）`;
     }
 
-    function speakStrokeSequentially(idx) {
+    // 每笔预留时间（毫秒）：必须 >= HanziWriter 单笔画绘制时间 + delayBetweenStrokes
+    // HanziWriter 默认 strokeAnimationSpeed=1 时，一笔约需 1000ms；delayBetweenStrokes=800ms
+    // 合计 ~1800ms，留 2200ms 确保语音和动画都完成
+    const MS_PER_STROKE = 2200;
+
+    // 先读一次生字（不拼拼音），再按固定间隔逐笔朗读
+    function startSequence() {
+        speechSynthesis.cancel();
+
+        const charUtterance = new SpeechSynthesisUtterance(currentChar.char);
+        charUtterance.lang = 'zh-CN';
+        charUtterance.rate = 0.7;
+
+        charUtterance.onend = function() {
+            setTimeout(function() { speakStrokesOnSchedule(0); }, 300);
+        };
+        charUtterance.onerror = function() {
+            setTimeout(function() { speakStrokesOnSchedule(0); }, 300);
+        };
+        speechSynthesis.speak(charUtterance);
+    }
+
+    // 按固定时间表逐笔朗读，与 HanziWriter 动画节奏同步
+    function speakStrokesOnSchedule(idx) {
         if (idx >= totalStrokes) {
             document.querySelectorAll('.stroke-step').forEach(s => s.classList.remove('active'));
             const hintEl = document.getElementById('anim-hint');
@@ -653,24 +675,16 @@ function playHanziWriterAnimation() {
 
         highlightStroke(idx);
 
-        if ('speechSynthesis' in window) {
-            const utterance = new SpeechSynthesisUtterance(strokes[idx]);
-            utterance.lang = 'zh-CN';
-            utterance.rate = 0.8;
-            utterance.onend = function() {
-                speakStrokeSequentially(idx + 1);
-            };
-            utterance.onerror = function() {
-                speakStrokeSequentially(idx + 1);
-            };
-            speechSynthesis.speak(utterance);
-        } else {
-            setTimeout(() => speakStrokeSequentially(idx + 1), 600);
-        }
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(strokes[idx]);
+        utterance.lang = 'zh-CN';
+        utterance.rate = 0.7;
+        speechSynthesis.speak(utterance);
+
+        setTimeout(function() { speakStrokesOnSchedule(idx + 1); }, MS_PER_STROKE);
     }
 
-    speechSynthesis.cancel();
-    speakStrokeSequentially(0);
+    startSequence();
 }
 
 function resetHanziWriter() {
