@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>六年级上册语文生字乐园</title>
+    <link rel="stylesheet" href="style.css?v=13">
+</head>
+<body>
+    <!-- 首页 -->
+    <div id="home-page" class="page active">
+        <div class="header">
+            <h1>📖 六年级上册语文生字乐园</h1>
+            <p class="subtitle">识字 · 写字 · 词语 · 挑战</p>
+        </div>
+        <!-- 学生栏 -->
+        <div id="student-bar" class="student-bar"></div>
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-icon">⭐</span>
+                <span class="stat-label">累计星星</span>
+                <span class="stat-value" id="total-stars">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-icon"></span>
+                <span class="stat-label">已学生字</span>
+                <span class="stat-value" id="learned-count">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-icon">🏆</span>
+                <span class="stat-label">挑战记录</span>
+                <span class="stat-value" id="best-score">0</span>
+            </div>
+        </div>
+        <div style="text-align:center;margin:10px;">
+            <button class="quiz-start-btn" style="padding:8px 20px;font-size:0.9rem;" onclick="showTeacherReport()">📋 教师查看全班记录（可按班级筛选）</button>
+        </div>
+        <div class="unit-grid" id="unit-grid"></div>
+    </div>
+
+    <!-- 课文生字列表页 -->
+    <div id="lesson-page" class="page">
+        <div class="header">
+            <button class="back-btn" onclick="goHome()">← 返回</button>
+            <h1 id="lesson-title">课文生字</h1>
+        </div>
+        <div class="char-grid" id="char-grid"></div>
+    </div>
+
+    <!-- 生字详情页 -->
+    <div id="detail-page" class="page">
+        <div class="header">
+            <button class="back-btn" onclick="goBackToLesson()">← 返回</button>
+            <h1 id="detail-title">生字学习</h1>
+        </div>
+        <div class="detail-content">
+            <div class="char-display-area">
+                <div class="big-char" id="big-char"></div>
+                <div class="char-info">
+                    <div class="pinyin" id="char-pinyin"></div>
+                    <div class="char-structure" id="char-structure"></div>
+                    <div class="char-meaning" id="char-meaning"></div>
+                </div>
+            </div>
+            <div class="mode-tabs">
+                <button class="mode-tab active" data-mode="stroke">✍️ 笔顺练习</button>
+                <button class="mode-tab" data-mode="words">📝 词语学习</button>
+                <button class="mode-tab" data-mode="quiz"> 识字挑战</button>
+            </div>
+            <div class="mode-content active" id="stroke-mode">
+                <div class="sub-mode-tabs">
+                    <button class="sub-mode-tab active" data-submode="watch" onclick="switchStrokeSubMode('watch')">▶ 笔顺演示</button>
+                    <button class="sub-mode-tab" data-submode="practice" onclick="switchStrokeSubMode('practice')">✍ 按笔顺书写</button>
+                </div>
+                <div class="sub-mode-content active" id="submode-watch">
+                    <div class="hw-container">
+                        <div id="hw-animate-target"></div>
+                    </div>
+                    <div class="stroke-controls">
+                        <button class="ctrl-btn" onclick="playHanziWriterAnimation()">▶ 播放笔顺动画</button>
+                        <button class="ctrl-btn" onclick="resetHanziWriter()">🔄 重置</button>
+                    </div>
+                    <div class="stroke-order" id="stroke-order-display">
+                        <p class="stroke-hint">点击"播放笔顺动画"观看书写演示，同时会朗读每一笔的名称</p>
+                    </div>
+                </div>
+                <div class="sub-mode-content" id="submode-practice">
+                    <div class="practice-info" id="practice-info">
+                        <div class="practice-step-display">
+                            <span class="practice-step-label">当前应写</span>
+                            <span class="practice-stroke-name" id="practice-stroke-name">点击"开始书写"按钮</span>
+                        </div>
+                        <div class="practice-progress" id="practice-progress"></div>
+                    </div>
+                    <div class="hw-container">
+                        <div id="hw-quiz-target"></div>
+                    </div>
+                    <div class="stroke-controls">
+                        <button class="ctrl-btn ctrl-start" onclick="startHanziQuiz()">▶ 开始书写</button>
+                        <button class="ctrl-btn" onclick="resetHanziQuiz()">🔄 重新开始</button>
+                    </div>
+                    <div class="practice-result" id="practice-result">
+                        <p class="info-msg">用手指或鼠标在田字格中按正确笔顺书写，写错会立即提示！</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mode-content" id="words-mode">
+                <div class="words-list" id="words-list"></div>
+            </div>
+            <div class="mode-content" id="quiz-mode">
+                <div class="quiz-area" id="quiz-area"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 报表页（动态内容） -->
+    <div id="report-page" class="page"></div>
+
+    <!-- 学生班级+姓名弹窗（强制登录，不可关闭） -->
+    <div id="student-modal" class="modal" style="display:none;">
+        <div class="modal-content" style="max-width:380px;">
+            <div style="text-align:center;margin-bottom:16px;">
+                <div style="font-size:3rem;">📖</div>
+                <h2 style="color:var(--primary-dark);margin-top:8px;">欢迎来到生字乐园</h2>
+                <p style="color:var(--text-light);margin:8px 0 0;font-size:0.95rem;">请先选择班级并输入姓名</p>
+            </div>
+            <div style="margin-bottom:14px;">
+                <label style="display:block;font-size:0.95rem;color:var(--text-light);margin-bottom:6px;">班级</label>
+                <select id="student-class-input" style="width:100%;padding:12px;font-size:1.1rem;border:2px solid var(--primary);border-radius:8px;box-sizing:border-box;background:#fff;">
+                    <option value="">请选择班级</option>
+                    <option value="六年级一班">六年级一班</option>
+                    <option value="六年级二班">六年级二班</option>
+                    <option value="六年级三班">六年级三班</option>
+                </select>
+            </div>
+            <div style="margin-bottom:14px;">
+                <label style="display:block;font-size:0.95rem;color:var(--text-light);margin-bottom:6px;">姓名</label>
+                <input type="text" id="student-name-input" placeholder="如：张小明" style="width:100%;padding:12px;font-size:1.1rem;border:2px solid var(--primary);border-radius:8px;box-sizing:border-box;" onkeydown="if(event.key==='Enter')confirmStudentName()">
+            </div>
+            <button class="quiz-start-btn" style="width:100%;margin-top:8px;" onclick="confirmStudentName()">开始学习</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+    <script src="data.js?v=13"></script>
+    <script src="app.js?v=13"></script>
+</body>
+</html>
