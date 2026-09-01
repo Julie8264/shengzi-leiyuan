@@ -637,9 +637,9 @@ function playHanziWriterAnimation() {
     }
 
     // 每笔时间（毫秒）：匹配 HanziWriter 的实际速度
-    // HanziWriter strokeAnimationSpeed=1 时，一笔约需 1000ms；delayBetweenStrokes=800ms
-    // 合计 ~1800ms，语音和动画同步
-    const MS_PER_STROKE = 1800;
+    // HanziWriter strokeAnimationSpeed=1 时，一笔约需 400-500ms；delayBetweenStrokes=800ms
+    // 合计 ~1200ms，语音和动画同步
+    const MS_PER_STROKE = 1200;
 
     // 先读一次生字（不拼拼音），读完后再同时启动动画和逐笔朗读
     function startSequence() {
@@ -647,7 +647,7 @@ function playHanziWriterAnimation() {
 
         const charUtterance = new SpeechSynthesisUtterance(currentChar.char);
         charUtterance.lang = 'zh-CN';
-        charUtterance.rate = 0.7;
+        charUtterance.rate = 1.0;
 
         charUtterance.onend = function() {
             // 读完生字后，同时启动 HanziWriter 动画和逐笔朗读
@@ -678,7 +678,7 @@ function playHanziWriterAnimation() {
         speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(strokes[idx]);
         utterance.lang = 'zh-CN';
-        utterance.rate = 0.7;
+        utterance.rate = 1.0;
         speechSynthesis.speak(utterance);
 
         setTimeout(function() { speakStrokesOnSchedule(idx + 1); }, MS_PER_STROKE);
@@ -916,7 +916,7 @@ function nextQuestion() {
     if (questionType === 'char2pinyin') {
         area.innerHTML = `
             <div class="quiz-score">第 ${quizState.question}/${quizState.total} 题 | 得分：${quizState.score}</div>
-            <div class="quiz-question">请选出下面这个字的正确读音</div>
+            <div class="quiz-question">请选出这个字的正确读音</div>
             <div class="quiz-char">${correctChar.char}</div>
             <div class="quiz-options" id="quiz-options"></div>
             <div class="quiz-feedback" id="quiz-feedback"></div>
