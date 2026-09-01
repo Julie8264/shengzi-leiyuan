@@ -381,7 +381,7 @@ function showTeacherReport() {
         }
         
         // 每个学生的详情
-        html += '<h3 style="color:var(--primary-dark);margin-top:24px;"> 未完成书写练习的学生详情</h3>';
+        html += '<h3 style="color:var(--primary-dark);margin-top:24px;">📝 未完成书写练习的学生详情</h3>';
         students.forEach(s => {
             const notPracticed = allChars.filter(c => !s.practicedChars.includes(c.char));
             if (notPracticed.length > 0) {
@@ -628,9 +628,6 @@ function playHanziWriterAnimation() {
         `<p class="stroke-hint" id="anim-hint" style="color:var(--accent-dark);font-weight:bold;">正在播放笔顺动画...</p>` +
         stepsHtml;
 
-    // 启动 HanziWriter 动画
-    animateWriter.animateCharacter();
-
     function highlightStroke(idx) {
         document.querySelectorAll('.stroke-step').forEach(s => s.classList.remove('active'));
         const stepEl = document.getElementById(`anim-step-${idx}`);
@@ -639,12 +636,12 @@ function playHanziWriterAnimation() {
         if (hintEl) hintEl.textContent = `第${idx + 1}笔：${strokes[idx]}（共${totalStrokes}画）`;
     }
 
-    // 每笔预留时间（毫秒）：必须 >= HanziWriter 单笔画绘制时间 + delayBetweenStrokes
-    // HanziWriter 默认 strokeAnimationSpeed=1 时，一笔约需 1000ms；delayBetweenStrokes=800ms
-    // 合计 ~1800ms，留 2200ms 确保语音和动画都完成
-    const MS_PER_STROKE = 2200;
+    // 每笔时间（毫秒）：匹配 HanziWriter 的实际速度
+    // HanziWriter strokeAnimationSpeed=1 时，一笔约需 1000ms；delayBetweenStrokes=800ms
+    // 合计 ~1800ms，语音和动画同步
+    const MS_PER_STROKE = 1800;
 
-    // 先读一次生字（不拼拼音），再按固定间隔逐笔朗读
+    // 先读一次生字（不拼拼音），读完后再同时启动动画和逐笔朗读
     function startSequence() {
         speechSynthesis.cancel();
 
@@ -653,9 +650,12 @@ function playHanziWriterAnimation() {
         charUtterance.rate = 0.7;
 
         charUtterance.onend = function() {
+            // 读完生字后，同时启动 HanziWriter 动画和逐笔朗读
+            animateWriter.animateCharacter();
             setTimeout(function() { speakStrokesOnSchedule(0); }, 300);
         };
         charUtterance.onerror = function() {
+            animateWriter.animateCharacter();
             setTimeout(function() { speakStrokesOnSchedule(0); }, 300);
         };
         speechSynthesis.speak(charUtterance);
